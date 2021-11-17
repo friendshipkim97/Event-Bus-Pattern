@@ -51,6 +51,7 @@ public class RMIEventBusImpl extends UnicastRemoteObject implements RMIEventBus 
 		EventQueue eventQueue;
 		for ( int i = 0; i < eventQueueList.size(); i++ ) {
 			eventQueue = eventQueueList.get(i);
+			System.out.println("eventQueue"+eventQueue.getEvent());
 			eventQueue.addEvent(sentEvent);
 			eventQueueList.set(i, eventQueue);
 		}
