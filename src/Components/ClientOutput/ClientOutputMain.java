@@ -13,7 +13,7 @@ import Framework.Event;
 import Framework.EventId;
 import Framework.EventQueue;
 import Framework.RMIEventBus;
-// 플러쉬로강제적
+
 public class ClientOutputMain {
 	public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
 		RMIEventBus eventBusInterface = (RMIEventBus) Naming.lookup("EventBus");

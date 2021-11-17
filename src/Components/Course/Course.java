@@ -23,6 +23,7 @@ public class Course {
         }
     }
 
+    public ArrayList<String> getPrerequisiteCoursesList() { return prerequisiteCoursesList; }
     public String getCourseId() {
 		return courseId;
 	}

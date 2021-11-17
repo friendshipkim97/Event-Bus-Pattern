@@ -44,6 +44,15 @@ public class CourseMain {
 					printLogEvent("Delete", event);
 					eventBus.sendEvent(new Event(EventId.ClientOutput, deleteCourse(coursesList, event.getMessage())));
 					break;
+				case applicationForCourse:
+					printLogEvent("applicationForCourse", event);
+					String validationCourseNumber = validationCourseNumber(coursesList, event.getMessage());
+					if(!validationCourseNumber.isEmpty())
+					  eventBus.sendEvent(new Event(EventId.ClientOutput, validationCourseNumber));
+					else
+					  eventBus.sendEvent(new Event(EventId.validationStudentNumberAndAdvancedCourses,
+							  makeCourseListWithAdvancedCoursesMessage(coursesList, event.getMessage())));
+					break;
 				case QuitTheSystem:
 					eventBus.unRegister(componentId);
 					done = true;
@@ -54,7 +63,7 @@ public class CourseMain {
 			}
 		}
 	}
-	
+
 	private static String deleteCourse(CourseComponent coursesList, String message) {
         if (coursesList.isRegisteredCourse(message)) {
 			coursesList.deleteCourse(message);
@@ -81,5 +90,25 @@ public class CourseMain {
 	private static void printLogEvent(String comment, Event event) {
 		System.out.println(
 				"\n** " + comment + " the event(ID:" + event.getEventId() + ") message: " + event.getMessage());
+	}
+
+	private static String makeCourseListWithAdvancedCoursesMessage(CourseComponent coursesList, String message) {
+		String[] distinguishedMessage = message.split("\\s");
+		String returnString = "";
+		returnString += message;
+		for (String advancedCourse : coursesList.getCourse(distinguishedMessage[0]).getPrerequisiteCoursesList()) {
+			returnString += " " + advancedCourse; }
+		return returnString;
+	}
+
+	/**
+	 * validation
+	 */
+	private static String validationCourseNumber(CourseComponent coursesList, String message) {
+		String[] distinguishedMessage = message.split("\\s");
+		if(!coursesList.isRegisteredCourse(distinguishedMessage[0])){
+			return "This course number is an unregistered course number.";
+		}
+		return "";
 	}
 }

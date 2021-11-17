@@ -38,4 +38,11 @@ public class CourseComponent {
             if(this.vCourse.get(i).getCourseId().equals(message)){
                 this.vCourse.remove(i); } }
     }
+
+    public Course getCourse(String courseId){
+        for (int i = 0; i < this.vCourse.size(); i++) {
+            if(((Course) this.vCourse.get(i)).match(courseId)) return this.vCourse.get(i);
+        }
+        return null;
+    }
 }

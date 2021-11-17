@@ -50,6 +50,10 @@ public class ClientInputMain {
 					eventBus.sendEvent(new Event(EventId.DeleteCourses, setCourseId()));
 					printLogSend(EventId.DeleteCourses);
 					break;
+				case "7":
+					eventBus.sendEvent(new Event(EventId.applicationForCourse, setCourseIdAndStudentId()));
+					printLogSend(EventId.applicationForCourse);
+					break;
 				case "0":
 					eventBus.sendEvent(new Event(EventId.QuitTheSystem, "Quit the system!!!"));
 					printLogSend(EventId.QuitTheSystem);
@@ -107,6 +111,11 @@ public class ClientInputMain {
 		System.out.println("\nEnter course ID and press return (Ex. 12345)>> ");
 		return new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
 	}
+	//@SuppressWarnings("unused")
+	private static String setCourseIdAndStudentId() throws IOException {
+		System.out.println("\nEnter course ID, student ID and press return (Ex. 12345 20131234)>> ");
+		return new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+	}
 	private static void writeMenu() {
 		System.out.println("1. List Students");
 		System.out.println("2. List Courses");
@@ -114,6 +123,7 @@ public class ClientInputMain {
 		System.out.println("4. Register a new Course");
 		System.out.println("5. Delete a Student");
 		System.out.println("6. Delete a Course");
+		System.out.println("7. Application For Course");
 		System.out.println("0. Quit the system");
 		System.out.print("\n Choose No.: ");
 	}
