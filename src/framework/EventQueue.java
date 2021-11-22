@@ -2,42 +2,38 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package Framework;
+package framework;
+
+import Components.constant.Constants.EEventQueue;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Vector;
 
-public class EventQueue implements Serializable
-{
-    private static final long serialVersionUID = 1L; // Default value for Serializable interface
+public class EventQueue implements Serializable {
+
+    private static final long serialVersionUID = EEventQueue.eSerialVersionUID.getId(); // Default value for Serializable interface
     private Vector<Event> eventList;
 	private long componentId;
 
 	public EventQueue() {
-		eventList = new Vector<Event> (15, 1);
-		componentId = Calendar.getInstance().getTimeInMillis();
-	}
+		eventList = new Vector<Event> (EEventQueue.eInitialCapacity.getNumber(), EEventQueue.eCapacityIncrement.getNumber());
+		componentId = Calendar.getInstance().getTimeInMillis(); }
 	
 	public long getId()	{
 		return componentId;
 	}
-	
 	public int getSize() {
 		return eventList.size();
 	}
-	
 	public void addEvent(Event newEvent) {
 		eventList.add(newEvent);
 	}
 	public Event getEvent() {
 		Event event = null;
-		if (eventList.size() > 0) {
-			event = eventList.get(0);
-			eventList.removeElementAt(0);
-		}
-		return event;
-	}
+		if (eventList.size() > EEventQueue.eZero.getNumber()) {
+			event = eventList.get(EEventQueue.eZero.getNumber());
+			eventList.removeElementAt(EEventQueue.eZero.getNumber()); }return event; }
 	public void clearEventQueue() {
 		eventList.removeAllElements();
 	}
@@ -46,7 +42,5 @@ public class EventQueue implements Serializable
 		EventQueue eventQueue = new EventQueue();
 		eventQueue.componentId = componentId;
 		eventQueue.eventList = (Vector<Event>) eventList.clone();
-
-		return eventQueue;
-	}
+		return eventQueue; }
 }

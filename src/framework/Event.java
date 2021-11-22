@@ -2,12 +2,15 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package Framework;
+package framework;
+
+import Components.constant.Constants;
 
 import java.io.Serializable;
 
 public class Event implements Serializable {
-    private static final long serialVersionUID = 1L; //Default serializable value  
+
+    private static final long serialVersionUID = Constants.EEvent.eSerialVersionUID.getNumber(); //Default serializable value
     private String message;
 	private EventId eventId;
 
