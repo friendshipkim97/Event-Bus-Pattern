@@ -2,9 +2,9 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package framework;
+package Framework;
 
-import Components.constant.Constants.EEventQueue;
+import Components.Constant.Constants.EEventQueue;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -19,7 +19,7 @@ public class EventQueue implements Serializable {
 	public EventQueue() {
 		eventList = new Vector<Event> (EEventQueue.eInitialCapacity.getNumber(), EEventQueue.eCapacityIncrement.getNumber());
 		componentId = Calendar.getInstance().getTimeInMillis(); }
-	
+
 	public long getId()	{
 		return componentId;
 	}

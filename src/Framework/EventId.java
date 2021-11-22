@@ -2,7 +2,7 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package framework;
+package Framework;
 
 public enum EventId {
     ClientOutput, ListStudents, ListCourses,

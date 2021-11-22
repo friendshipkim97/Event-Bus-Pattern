@@ -2,9 +2,9 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package framework;
+package Framework;
 
-import Components.constant.Constants.ERMIEventBusImpl;
+import Components.Constant.Constants.ERMIEventBusImpl;
 
 import java.rmi.Naming;
 

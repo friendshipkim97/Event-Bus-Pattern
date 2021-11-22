@@ -2,7 +2,7 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package framework;
+package Framework;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
