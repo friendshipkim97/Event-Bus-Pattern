@@ -2,7 +2,7 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package Components.Student;
+package Components.student;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,52 +11,51 @@ import java.rmi.NotBoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Components.Course.Course;
-import Components.Course.CourseComponent;
-import Framework.Event;
-import Framework.EventId;
-import Framework.EventQueue;
-import Framework.RMIEventBus;
+import Components.constant.Constants.EStudentMain;
+import framework.Event;
+import framework.EventId;
+import framework.EventQueue;
+import framework.RMIEventBus;
 
 public class StudentMain {
 	public static void main(String args[]) throws FileNotFoundException, IOException, NotBoundException {
-		RMIEventBus eventBus = (RMIEventBus) Naming.lookup("EventBus");
+		RMIEventBus eventBus = (RMIEventBus) Naming.lookup(EStudentMain.eEventBus.getContent());
 		long componentId = eventBus.register();
-		System.out.println("** StudentMain(ID:" + componentId + ") is successfully registered. \n");
+		System.out.println(EStudentMain.eStudentMainID.getContent() + componentId + EStudentMain.eStudentMainRegister.getContent());
 
-		StudentComponent studentsList = new StudentComponent("Students.txt");
+		StudentComponent studentsList = new StudentComponent(EStudentMain.eStudentFileName.getContent());
 		Event event = null;
 
 		boolean done = false;
 		while (!done) {
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(EStudentMain.eThreadTime.getNumber());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			EventQueue eventQueue = eventBus.getEventQueue(componentId);
-			for (int i = 0; i < eventQueue.getSize(); i++) {
+			for (int i = EStudentMain.eOne.getNumber(); i < eventQueue.getSize(); i++) {
 				event = eventQueue.getEvent();
 				switch (event.getEventId()) {
 				case ListStudents:
-					printLogEvent("Get", event);
+					printLogEvent(EStudentMain.eEventGet.getContent(), event);
 					eventBus.sendEvent(new Event(EventId.ClientOutput, makeStudentList(studentsList)));
 					break;
 				case RegisterStudents:
-					printLogEvent("Get", event);
+					printLogEvent(EStudentMain.eEventGet.getContent(), event);
 					eventBus.sendEvent(new Event(EventId.ClientOutput, registerStudent(studentsList, event.getMessage())));
 					break;
 				case DeleteStudents:
-					printLogEvent("Delete", event);
+					printLogEvent(EStudentMain.eEventDelete.getContent(), event);
 					eventBus.sendEvent(new Event(EventId.ClientOutput, deleteStudent(studentsList, event.getMessage())));
 					break;
-				case validationStudentNumberAndAdvancedCourses:
-					printLogEvent("validation", event);
+				case validationApplicationForCourse:
+					printLogEvent(EStudentMain.eEventValidation.getContent(), event);
 					String[] inputData = getInputData(event.getMessage());
-					String inputCourseNumber = inputData[0];
-					String inputStudentNumber = inputData[1];
+					String inputCourseNumber = inputData[EStudentMain.eZero.getNumber()];
+					String inputStudentNumber = inputData[EStudentMain.eOne.getNumber()];
 					ArrayList<String> advancedCourseNumbers = new ArrayList<>();
-					for (int j = 2; j<inputData.length; j++) {
+					for (int j = EStudentMain.eTwo.getNumber(); j<inputData.length; j++) {
 						advancedCourseNumbers.add(inputData[j]); }
 
 					String validationStudentNumberIsRegistered = validationStudentNumberIsRegistered(studentsList, inputStudentNumber);
@@ -69,13 +68,12 @@ public class StudentMain {
 					    eventBus.sendEvent(new Event(EventId.ClientOutput, validationTakingCourse));
 					else if(!validationCompletedAdvancedCourses.isEmpty())
 					    eventBus.sendEvent(new Event(EventId.ClientOutput, validationCompletedAdvancedCourses));
-                    else
-					    eventBus.sendEvent(new Event(EventId.ClientOutput, applicationForCourse(studentsList, inputCourseNumber, inputStudentNumber)));
+                    else eventBus.sendEvent(new Event(EventId.ClientOutput, applicationForCourse(studentsList, inputCourseNumber, inputStudentNumber)));
 					break;
                 case QuitTheSystem:
-					printLogEvent("Get", event);
+					printLogEvent(EStudentMain.eEventGet.getContent(), event);
 					eventBus.unRegister(componentId);
-					done = true;
+					done = EStudentMain.eTrue.getCheck();
 					break;
 				default:
 					break;
@@ -84,66 +82,64 @@ public class StudentMain {
 		}
 	}
 
+	private static String makeStudentList(StudentComponent studentsList) {
+		String returnString = EStudentMain.eEmpty.getContent();
+		for (int j = EStudentMain.eZero.getNumber(); j < studentsList.vStudent.size(); j++) {
+			returnString += studentsList.getStudentList().get(j).getString() + EStudentMain.eEnter.getContent(); }
+		return returnString;
+	}
+	private static void printLogEvent(String comment, Event event) {
+		System.out.println(
+				EStudentMain.eLogEventMessage1.getContent() + comment + EStudentMain.eLogEventMessage2.getContent()
+						+ event.getEventId() + EStudentMain.eLogEventMessage3.getContent() + event.getMessage());
+	}
+
+	private static String[] getInputData(String message) {
+		Scanner scanner = new Scanner(message);
+		String s = scanner.nextLine();
+		String[] distinguishedMessage = s.split(EStudentMain.eMessageSplitFormat.getContent());
+		return distinguishedMessage;
+	}
+
+	/**
+	 * validation
+	 */
+
 	private static String deleteStudent(StudentComponent studentsList, String message) {
 		if (studentsList.isRegisteredStudent(message)) {
 			studentsList.deleteStudent(message);
-			return "This student is successfully deleted.";
+			return EStudentMain.eDeleteStudentSuccessMessage.getContent();
 		} else
-			return "There is no student";
+			return EStudentMain.eDeleteStudentFailMessage.getContent();
 	}
 	
 	private static String registerStudent(StudentComponent studentsList, String message) {
 		Student student = new Student(message);
 		if (!studentsList.isRegisteredStudent(student.studentId)) {
 			studentsList.vStudent.add(student);
-			return "This student is successfully added.";
+			return EStudentMain.eRegisterStudentSuccessMessage.getContent();
 		} else
-			return "This student is already registered.";
-	}
-	private static String makeStudentList(StudentComponent studentsList) {
-		String returnString = "";
-		for (int j = 0; j < studentsList.vStudent.size(); j++) {
-			returnString += studentsList.getStudentList().get(j).getString() + "\n";
-		}
-		return returnString;
-	}
-	private static void printLogEvent(String comment, Event event) {
-		System.out.println(
-				"\n** " + comment + " the event(ID:" + event.getEventId() + ") message: " + event.getMessage());
-	}
-
-	private static String[] getInputData(String message) {
-		Scanner scanner = new Scanner(message);
-		String s = scanner.nextLine();
-		String[] distinguishedMessage = s.split("\\s+");
-		return distinguishedMessage;
+			return EStudentMain.eRegisterStudentFailMessage.getContent();
 	}
 
 	private static String applicationForCourse(StudentComponent studentsList, String inputCourseNumber, String inputStudentNumber) {
 		studentsList.applicationForCourse(inputCourseNumber, inputStudentNumber);
-		return "You have completed the course application.";
+		return EStudentMain.eApplicationForCourseSuccessMessage.getContent();
 	}
 
-
-	/**
-	 * validation
-	 */
 	private static String validationStudentNumberIsRegistered(StudentComponent studentsList, String inputStudentNumber) {
 		if (!studentsList.isRegisteredStudent(inputStudentNumber))
-			return "This student number is an unregistered student number.";
-		return "";
-	}
+			return EStudentMain.eStudentNumberNotRegisteredMessage.getContent();
+		return EStudentMain.eEmpty.getContent(); }
 
 	private static String validationTakingCourse(StudentComponent studentsList, String inputCourseNumber, String inputStudentNumber) {
 		if (studentsList.isAlreadyTakingCourse(inputCourseNumber, inputStudentNumber))
-		     return "The student is already taking the course.";
-		return "";
-	}
+		     return EStudentMain.eAlreadyTakingCourseMessage.getContent();
+		return EStudentMain.eEmpty.getContent(); }
 
 	private static String validationCompletedAdvancedCourses(StudentComponent studentsList
 			, ArrayList<String> advancedCourseNumbers, String inputStudentNumber) {
 		if(!studentsList.isCompletedAdvancedCourse(advancedCourseNumbers, inputStudentNumber))
-			return "The student did not complete the advanced courses.";
-		return "";
-	}
+			return EStudentMain.eNotCompletedAdvancedCourses.getContent();
+		return EStudentMain.eEmpty.getContent(); }
 }

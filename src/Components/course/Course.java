@@ -1,7 +1,9 @@
 /**
  * Copyright(c) 2021 All rights reserved by Jungho Kim in Myungji University
  */
-package Components.Course;
+package Components.course;
+
+import Components.constant.Constants.ECourse;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -19,9 +21,7 @@ public class Course {
         this.name = stringTokenizer.nextToken();
         this.prerequisiteCoursesList = new ArrayList<String>();
         while(stringTokenizer.hasMoreTokens()) {
-            this.prerequisiteCoursesList.add(stringTokenizer.nextToken());
-        }
-    }
+            this.prerequisiteCoursesList.add(stringTokenizer.nextToken()); } }
 
     public ArrayList<String> getPrerequisiteCoursesList() { return prerequisiteCoursesList; }
     public String getCourseId() {
@@ -37,10 +37,9 @@ public class Course {
         return this.name;
     }
     public String getString() {
-        String stringReturn = this.courseId + " " + this.instructor + " " + this.name;
-        for(int i = 0; i < this.prerequisiteCoursesList.size(); i++) {
-            stringReturn += " " + this.prerequisiteCoursesList.get(i).toString();
-        }
+        String stringReturn = this.courseId + ECourse.eSpace.getContent() + this.instructor + ECourse.eSpace.getContent() + this.name;
+        for(int i = ECourse.eZero.getNumber(); i < this.prerequisiteCoursesList.size(); i++) {
+            stringReturn += ECourse.eSpace.getContent() + this.prerequisiteCoursesList.get(i).toString(); }
         return stringReturn;
     }
 }
