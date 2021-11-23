@@ -2,26 +2,35 @@
  * Copyright(c) 2021 All rights reserved by Jungho Kim in MyungJi University 
  */
 
-package Components.clientoutput;
+package Components.ClientOutput;
 
-import Components.constant.Constants;
-import Components.constant.Constants.EClientOutputMain;
-import framework.Event;
-import framework.EventId;
-import framework.EventQueue;
-import framework.RMIEventBus;
+import Components.Constant.Constants.EClientOutputMain;
+import Framework.Event;
+import Framework.EventId;
+import Framework.EventQueue;
+import Framework.RMIEventBus;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 public class ClientOutputMain {
-	public static void main(String[] args) throws RemoteException, IOException, NotBoundException {
-		RMIEventBus eventBusInterface = (RMIEventBus) Naming.lookup(EClientOutputMain.eEventBus.getContent());
-		long componentId = eventBusInterface.register();
-		System.out.println(EClientOutputMain.eClientOutputMainID.getContent() + componentId + EClientOutputMain.eClientOutputMainRegister.getContent());
-		
+
+	public static void main(String[] args) throws IOException, NotBoundException {
+		new ClientOutputMain();
+	}
+
+	RMIEventBus eventBusInterface;
+	long componentId;
+
+	public ClientOutputMain() throws RemoteException, NotBoundException, MalformedURLException {
+		registerComponent();
+		setEvent();
+	}
+
+	private void setEvent() throws RemoteException {
 		Event event = null;
 		boolean done = EClientOutputMain.eFalse.getCheck();
 		while (!done) {
@@ -42,6 +51,11 @@ public class ClientOutputMain {
 				}
 			}
 		}
+	}
+	private void registerComponent() throws RemoteException, NotBoundException, MalformedURLException {
+		eventBusInterface = (RMIEventBus) Naming.lookup(EClientOutputMain.eEventBus.getContent());
+		componentId = eventBusInterface.register();
+		System.out.println(EClientOutputMain.eClientOutputMainID.getContent() + componentId + EClientOutputMain.eClientOutputMainRegister.getContent());
 	}
 	private static void printOutput(Event event) {
 		System.out.println(event.getMessage());

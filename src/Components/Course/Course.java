@@ -1,9 +1,9 @@
 /**
  * Copyright(c) 2021 All rights reserved by Jungho Kim in Myungji University
  */
-package Components.course;
+package Components.Course;
 
-import Components.constant.Constants.ECourse;
+import Components.Constant.Constants.ECourse;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;

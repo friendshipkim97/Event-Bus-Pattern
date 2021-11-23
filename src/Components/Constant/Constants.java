@@ -1,4 +1,4 @@
-package Components.constant;
+package Components.Constant;
 
 public class Constants {
 
@@ -25,14 +25,14 @@ public class Constants {
         eSetStudentId("\nEnter student ID and press return (Ex. 20131234)>> "),
         eSetCourseId("\nEnter course ID and press return (Ex. 12345)>> "),
         eSetStudentIdAndCourseId("\nEnter course ID, student ID and press return (Ex. 12345 20131234)>> "),
-        eMenuOne("one. List Students"),
-        eMenuTwo("two. List Courses"),
-        eMenuThree("three. Register a new Student"),
-        eMenuFour("four. Register a new Course"),
-        eMenuFive("five. Delete a Student"),
-        eMenuSix("six. Delete a Course"),
-        eMenuSeven("seven. Application For Course"),
-        eMenuEight("zero. Quit the system"),
+        eMenuOne("[1]. List Students"),
+        eMenuTwo("[2]. List Courses"),
+        eMenuThree("[3]. Register a new Student"),
+        eMenuFour("[4]. Register a new Course"),
+        eMenuFive("[5]. Delete a Student"),
+        eMenuSix("[6]. Delete a Course"),
+        eMenuSeven("[7]. Application For Course"),
+        eMenuEight("[0]. Quit the system"),
         eMenuChooseNumber("\n Choose No.: "),
         eSendEventMessage("\n** Sending an event(ID:"),
         eSendEventMessageEnter(")\n"),
@@ -116,7 +116,7 @@ public class Constants {
         eDeleteCourseSuccessMessage("This course is successfully deleted."),
         eDeleteCourseFailMessage("There is no course"),
         eRegisterCourseSuccessMessage("This course is successfully added."),
-        eRegisterCourseFailMessage("There is no course"),
+        eRegisterCourseFailMessage("This Course is already registered."),
         eValidationCourseNumberMessage("This course number is an unregistered course number."),
         eMessageSplitFormat("\\s"),
         eSpace(" "),

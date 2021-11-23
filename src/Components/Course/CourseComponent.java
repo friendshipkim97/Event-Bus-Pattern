@@ -1,9 +1,9 @@
 /**
  * Copyright(c) 2021 All rights reserved by Jungho Kim in Myungji University
  */
-package Components.course;
+package Components.Course;
 
-import Components.constant.Constants.ECourseComponent;
+import Components.Constant.Constants.ECourseComponent;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
