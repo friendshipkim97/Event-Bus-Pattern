@@ -34,14 +34,12 @@ public class CourseMain {
 	}
 
 	private void readCourseFile() throws IOException {
-		coursesList = new CourseComponent(ECourseMain.eCourseFileName.getContent());
-	}
+		coursesList = new CourseComponent(ECourseMain.eCourseFileName.getContent()); }
 
 	private void registerComponent() throws RemoteException, NotBoundException, MalformedURLException {
 		eventBus = (RMIEventBus) Naming.lookup(ECourseMain.eEventBus.getContent());
 		componentId = eventBus.register();
-		System.out.println(ECourseMain.eCourseMainID.getContent() + componentId + ECourseMain.eCourseMainRegister.getContent());
-	}
+		System.out.println(ECourseMain.eCourseMainID.getContent() + componentId + ECourseMain.eCourseMainRegister.getContent()); }
 
 	private void setEvent() throws RemoteException {
 		Event event = null;
@@ -102,8 +100,8 @@ public class CourseMain {
 		returnString += message;
 		for (String advancedCourse : coursesList.getCourse(distinguishedMessage[ECourseMain.eZero.getNumber()]).getPrerequisiteCoursesList()) {
 			returnString += ECourseMain.eSpace.getContent() + advancedCourse; }
-		return returnString;
-	}
+		return returnString; }
+
 	/**
 	 * validation
 	 */
@@ -112,27 +110,21 @@ public class CourseMain {
 		if (coursesList.isRegisteredCourse(message)) {
 			coursesList.deleteCourse(message);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eDeleteCourseSuccessMessage.getContent()));
-		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eDeleteCourseFailMessage.getContent()));
-	}
+		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eDeleteCourseFailMessage.getContent())); }
 
 	private void validationRegisterCourse(CourseComponent coursesList, String message) throws RemoteException {
 		Course course = new Course(message);
 		if (!coursesList.isRegisteredCourse(course.courseId)) {
 			coursesList.vCourse.add(course);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eRegisterCourseSuccessMessage.getContent()));
-		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eRegisterCourseFailMessage.getContent()));
-	}
+		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eRegisterCourseFailMessage.getContent())); }
 
 	private void validationCourseNumber(CourseComponent coursesList, String message) throws RemoteException {
 		String[] distinguishedMessage = message.split(ECourseMain.eMessageSplitFormat.getContent());
 		if (!coursesList.isRegisteredCourse(distinguishedMessage[ECourseMain.eZero.getNumber()])) {
 			validationError = ECourseMain.eTrue.getCheck();
-			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eValidationCourseNumberMessage.getContent()));
-		}
-	}
+			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eValidationCourseNumberMessage.getContent())); } }
 	private void validationTotalErrorCheck(CourseComponent coursesList, String message) throws RemoteException {
 		if(validationError == ECourseMain.eFalse.getCheck()){
-			eventBus.sendEvent(new Event(EventId.validationApplicationForCourse, makeCourseListWithAdvancedCoursesMessage(coursesList, message)));
-		}
-	}
+			eventBus.sendEvent(new Event(EventId.validationApplicationForCourse, makeCourseListWithAdvancedCoursesMessage(coursesList, message))); } }
 }

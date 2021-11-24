@@ -127,8 +127,6 @@ public class StudentMain {
 	/**
 	 * validation
 	 */
-
-
 	private void validationDeleteStudent(StudentComponent studentsList, String message) throws RemoteException {
 		if (studentsList.isRegisteredStudent(message)) {
 			studentsList.deleteStudent(message);
