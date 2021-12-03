@@ -40,6 +40,5 @@ public class Course {
         String stringReturn = this.courseId + ECourse.eSpace.getContent() + this.instructor + ECourse.eSpace.getContent() + this.name;
         for(int i = ECourse.eZero.getNumber(); i < this.prerequisiteCoursesList.size(); i++) {
             stringReturn += ECourse.eSpace.getContent() + this.prerequisiteCoursesList.get(i).toString(); }
-        return stringReturn;
-    }
+        return stringReturn; }
 }

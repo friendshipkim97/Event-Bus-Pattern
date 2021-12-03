@@ -111,14 +111,12 @@ public class CourseMain {
 			coursesList.deleteCourse(message);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eDeleteCourseSuccessMessage.getContent()));
 		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eDeleteCourseFailMessage.getContent())); }
-
 	private void validationRegisterCourse(CourseComponent coursesList, String message) throws RemoteException {
 		Course course = new Course(message);
 		if (!coursesList.isRegisteredCourse(course.courseId)) {
 			coursesList.vCourse.add(course);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eRegisterCourseSuccessMessage.getContent()));
 		} else eventBus.sendEvent(new Event(EventId.ClientOutput, ECourseMain.eRegisterCourseFailMessage.getContent())); }
-
 	private void validationCourseNumber(CourseComponent coursesList, String message) throws RemoteException {
 		String[] distinguishedMessage = message.split(ECourseMain.eMessageSplitFormat.getContent());
 		if (!coursesList.isRegisteredCourse(distinguishedMessage[ECourseMain.eZero.getNumber()])) {

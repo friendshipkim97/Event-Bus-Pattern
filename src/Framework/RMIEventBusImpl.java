@@ -65,7 +65,7 @@ public class RMIEventBusImpl extends UnicastRemoteObject implements RMIEventBus 
 		EventQueue originalQueue = null; 
 		EventQueue copiedQueue =  null;
 		for ( int i = ERMIEventBusImpl.eZero.getNumber(); i < eventQueueList.size(); i++ ) {
-			originalQueue =  eventQueueList.get(i);
+			originalQueue = eventQueueList.get(i);
 			if (originalQueue.getId() == id) {
 				originalQueue = eventQueueList.get(i);
 				copiedQueue = originalQueue.getCopy();
