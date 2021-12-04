@@ -36,6 +36,4 @@ public class Student {
 		for (int i = EStudent.eZero.getNumber(); i < this.completedCoursesList.size(); i++)
 			stringReturn += EStudent.eSpace.getContent() + this.completedCoursesList.get(i).toString();
 		return stringReturn; }
-	public String getStudentId() { return studentId; }
-	public String getDepartment() { return department; }
 }

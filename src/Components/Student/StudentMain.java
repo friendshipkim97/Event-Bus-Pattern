@@ -69,7 +69,6 @@ public class StudentMain {
 						break;
 					case RegisterStudents:
 						printLogEvent(EStudentMain.eEventGet.getContent(), event);
-						validationRegisterStudentGrammar(event.getMessage());
 						validationRegisterStudent(studentsList, event.getMessage());
 						break;
 					case DeleteStudents:
@@ -133,15 +132,6 @@ public class StudentMain {
 			studentsList.deleteStudent(message);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eDeleteStudentSuccessMessage.getContent()));
 		} else eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eDeleteStudentFailMessage.getContent())); }
-	private void validationRegisterStudentGrammar(String message) throws RemoteException {
-		Student student = new Student(message);
-		if (student.getName().equals(EStudentMain.eEmpty.getContent()) ||
-				student.getStudentId().equals(EStudentMain.eEmpty.getContent())
-				|| student.getDepartment().equals(EStudentMain.eEmpty.getContent())) {
-			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eEmptyRequestStudentExceptionMessage.getContent())); } }
-
-
-
 	private void validationRegisterStudent(StudentComponent studentsList, String message) throws RemoteException {
 		Student student = new Student(message);
 		if (!studentsList.isRegisteredStudent(student.studentId)) {
