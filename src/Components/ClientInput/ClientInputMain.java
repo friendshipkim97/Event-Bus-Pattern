@@ -86,52 +86,94 @@ public class ClientInputMain {
 		System.out.println(EClientInputMain.eClientInputMainID.getContent() + componentId + EClientInputMain.eClientInputMainRegister.getContent());
 	}
 	private static String makeStudentInfo() throws IOException {
-		String userInput = EClientInputMain.eEmpty.getContent();
+		String userInput;
+		String studentId;
+		String studentFamilyName;
+		String studentFirstName;
+		String studentMajor;
+		String manyCourseIds;
 		System.out.println(EClientInputMain.eEnterStudentId.getContent());
-		userInput = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		studentId = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationStudentId(studentId);
+		userInput = studentId;
+
 		System.out.println(EClientInputMain.eEnterFamilyName.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		studentFamilyName = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationStudentName(studentFamilyName);
+		userInput += EClientInputMain.eSpace.getContent() + studentFamilyName;
+
 		System.out.println(EClientInputMain.eEnterFirstName.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		studentFirstName = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationStudentName(studentFirstName);
+		userInput += EClientInputMain.eSpace.getContent() + studentFirstName;
+
 		System.out.println(EClientInputMain.eEnterDepartment.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
-		System.out.println(
-				EClientInputMain.eEnterCompletedCourses.getContent());
+		studentMajor = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationStudentMajor(studentMajor);
+		userInput += EClientInputMain.eSpace.getContent() + studentMajor;
+
+		System.out.println(EClientInputMain.eEnterCompletedCourses.getContent());
 		System.out.println(EClientInputMain.eEnterCompletedCoursesEX.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		manyCourseIds = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationManyCourseIds(manyCourseIds);
+		userInput += EClientInputMain.eSpace.getContent() + manyCourseIds;
+
 		System.out.println(EClientInputMain.eMessage.getContent() + userInput + EClientInputMain.eEnter.getContent());
 		return userInput;
 	}
 	private static String makeCourseInfo() throws IOException {
-		String userInput = EClientInputMain.eEmpty.getContent();
+		String userInput;
+		String courseId;
+		String familyNameOfInstructor;
+		String courseName;
+		String manyCourseIds;
+
 		System.out.println(EClientInputMain.eEnterCourseId.getContent());
-		userInput = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		courseId = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationCourseId(courseId);
+		userInput = courseId;
+
 		System.out.println(EClientInputMain.eEnterFamilyNameOfInstructor.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
-		System.out.println(
-				EClientInputMain.eEnterCourseNames.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
-		System.out.println(
-				EClientInputMain.eEnterCompletedCoursesId.getContent());
+		familyNameOfInstructor = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationFamilyNameOfInstructor(familyNameOfInstructor);
+		userInput += EClientInputMain.eSpace.getContent() + familyNameOfInstructor;
+
+		System.out.println(EClientInputMain.eEnterCourseNames.getContent());
+		courseName = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationCourseName(courseName);
+		userInput += EClientInputMain.eSpace.getContent() + courseName;
+
+		System.out.println(EClientInputMain.eEnterCompletedCoursesId.getContent());
 		System.out.println(EClientInputMain.eEnterCompletedCoursesIdEX.getContent());
-		userInput += EClientInputMain.eSpace.getContent() + new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		manyCourseIds = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationManyCourseIds(manyCourseIds);
+		userInput += EClientInputMain.eSpace.getContent() + manyCourseIds;
 		System.out.println(EClientInputMain.eMessage.getContent() + userInput + EClientInputMain.eEnter.getContent());
 		return userInput;
 	}
 	//@SuppressWarnings("unused")
 	private static String setStudentId() throws IOException {
 		System.out.println(EClientInputMain.eSetStudentId.getContent());
-		return new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		String studentId;
+		studentId = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationStudentId(studentId);
+		return studentId;
 	}
 	//@SuppressWarnings("unused")
 	private static String setCourseId() throws IOException {
 		System.out.println(EClientInputMain.eSetCourseId.getContent());
-		return new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		String courseId;
+		courseId = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationCourseId(courseId);
+		return courseId;
 	}
 	//@SuppressWarnings("unused")
 	private static String setCourseIdAndStudentId() throws IOException {
 		System.out.println(EClientInputMain.eSetStudentIdAndCourseId.getContent());
-		return new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		String courseIdAndStudentId;
+		courseIdAndStudentId = new BufferedReader(new InputStreamReader(System.in)).readLine().trim();
+		validationCourseIdAndStudentId(courseIdAndStudentId);
+		return courseIdAndStudentId;
 	}
 	private static void writeMenu() {
 		System.out.println(EClientInputMain.eMenuOne.getContent());
@@ -147,4 +189,37 @@ public class ClientInputMain {
 	private static void printLogSend(EventId eventId) {
 		System.out.println(EClientInputMain.eSendEventMessage.getContent() + eventId + EClientInputMain.eSendEventMessageEnter.getContent());
 	}
+
+	/**
+	 * validation
+	 */
+	private static void validationStudentName(String studentName) {
+		if(studentName.matches(EClientInputMain.eMatchContainNumber.getContent()) ||
+				studentName.equals(EClientInputMain.eEmpty.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eStudentNameMatchMessage.getContent()); } }
+	private static void validationStudentId(String studentId) {
+		if((studentId.matches(EClientInputMain.eMatchOnlyNumber.getContent()) == false) ||
+				studentId.equals(EClientInputMain.eEmpty.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eStudentNumberMatchMessage.getContent()); } }
+	private static void validationStudentMajor(String studentMajor) {
+		if(studentMajor.matches(EClientInputMain.eMatchContainNumber.getContent()) ||
+				studentMajor.equals(EClientInputMain.eEmpty.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eMajorMatchMessage.getContent()); } }
+	private static void validationManyCourseIds(String courseIds) {
+		if(courseIds.matches(EClientInputMain.eMatchManyCourseNumbers.getContent()) == false){
+			throw new IllegalArgumentException(EClientInputMain.eManyCourseNumbersMatchMessage.getContent()); } }
+	private static void validationCourseId(String courseId) {
+		if(courseId.matches(EClientInputMain.eMatchOnlyNumber.getContent()) == false ||
+				courseId.equals(EClientInputMain.eEmpty.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eCourseNumberMatchMessage.getContent()); } }
+	private static void validationFamilyNameOfInstructor(String familyNameOfInstructor) {
+		if(familyNameOfInstructor.matches(EClientInputMain.eMatchContainNumber.getContent()) ||
+				familyNameOfInstructor.equals(EClientInputMain.eEmpty.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eProfessorLastNameMatchMessage.getContent()); } }
+	private static void validationCourseName(String courseName) {
+		if(courseName.matches(EClientInputMain.eMatchContainNumber.getContent())){
+			throw new IllegalArgumentException(EClientInputMain.eCourseNameMatchMessage.getContent()); } }
+	private static void validationCourseIdAndStudentId(String courseIdAndStudentId) {
+		if(courseIdAndStudentId.matches(EClientInputMain.eMatchCourseIdAndStudentId.getContent()) == false){
+			throw new IllegalArgumentException(EClientInputMain.eCourseIdAndStudentIdMatchMessage.getContent()); } }
 }
