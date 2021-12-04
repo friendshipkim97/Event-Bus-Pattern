@@ -55,8 +55,7 @@ public class ClientOutputMain {
 	private void registerComponent() throws RemoteException, NotBoundException, MalformedURLException {
 		eventBusInterface = (RMIEventBus) Naming.lookup(EClientOutputMain.eEventBus.getContent());
 		componentId = eventBusInterface.register();
-		System.out.println(EClientOutputMain.eClientOutputMainID.getContent() + componentId + EClientOutputMain.eClientOutputMainRegister.getContent());
-	}
+		System.out.println(EClientOutputMain.eClientOutputMainID.getContent() + componentId + EClientOutputMain.eClientOutputMainRegister.getContent()); }
 	private static void printOutput(Event event) {
 		System.out.println(event.getMessage());
 	}

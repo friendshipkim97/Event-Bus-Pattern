@@ -131,33 +131,26 @@ public class StudentMain {
 		if (studentsList.isRegisteredStudent(message)) {
 			studentsList.deleteStudent(message);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eDeleteStudentSuccessMessage.getContent()));
-		} else eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eDeleteStudentFailMessage.getContent()));
-	}
-
+		} else eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eDeleteStudentFailMessage.getContent())); }
 	private void validationRegisterStudent(StudentComponent studentsList, String message) throws RemoteException {
 		Student student = new Student(message);
 		if (!studentsList.isRegisteredStudent(student.studentId)) {
 			studentsList.vStudent.add(student);
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eRegisterStudentSuccessMessage.getContent()));
-		} else eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eRegisterStudentFailMessage.getContent()));
-	}
-
+		} else eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eRegisterStudentFailMessage.getContent())); }
 	private void validationStudentNumberIsRegistered(StudentComponent studentsList, String inputStudentNumber) throws RemoteException {
 		if (!studentsList.isRegisteredStudent(inputStudentNumber)) {
 			validationError = EStudentMain.eTrue.getCheck();
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eStudentNumberNotRegisteredMessage.getContent())); } }
-
 	private void validationTakingCourse(StudentComponent studentsList, String inputCourseNumber, String inputStudentNumber) throws RemoteException {
 		if ((validationError == EStudentMain.eFalse.getCheck()) && (studentsList.isAlreadyTakingCourse(inputCourseNumber, inputStudentNumber))) {
 			validationError = EStudentMain.eTrue.getCheck();
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eAlreadyTakingCourseMessage.getContent())); } }
-
 	private void validationCompletedAdvancedCourses(StudentComponent studentsList
 			, ArrayList<String> advancedCourseNumbers, String inputStudentNumber) throws RemoteException {
 		if ((validationError == EStudentMain.eFalse.getCheck()) && (!studentsList.isCompletedAdvancedCourse(advancedCourseNumbers, inputStudentNumber))) {
 			validationError = EStudentMain.eTrue.getCheck();
 			eventBus.sendEvent(new Event(EventId.ClientOutput, EStudentMain.eNotCompletedAdvancedCourses.getContent())); } }
-
 	private void validationTotalErrorCheck() throws RemoteException {
 		if(validationError == EStudentMain.eFalse.getCheck()){
 			eventBus.sendEvent(new Event(EventId.ClientOutput, applicationForCourse(studentsList, inputCourseNumber, inputStudentNumber))); } }
