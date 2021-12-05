@@ -64,7 +64,7 @@ public class ClientInputMain {
 						eventBus.sendEvent(new Event(EventId.applicationForCourse, setCourseIdAndStudentId()));
 						printLogSend(EventId.applicationForCourse);
 						break;
-					case "8":
+					case "0":
 						eventBus.sendEvent(new Event(EventId.QuitTheSystem, EClientInputMain.eQuitTheSystem.getContent()));
 						printLogSend(EventId.QuitTheSystem);
 						eventBus.unRegister(componentId);
@@ -183,7 +183,7 @@ public class ClientInputMain {
 		System.out.println(EClientInputMain.eMenuFive.getContent());
 		System.out.println(EClientInputMain.eMenuSix.getContent());
 		System.out.println(EClientInputMain.eMenuSeven.getContent());
-		System.out.println(EClientInputMain.eMenuEight.getContent());
+		System.out.println(EClientInputMain.eMenuZero.getContent());
 		System.out.print(EClientInputMain.eMenuChooseNumber.getContent());
 	}
 	private static void printLogSend(EventId eventId) {

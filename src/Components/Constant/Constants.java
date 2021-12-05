@@ -32,7 +32,7 @@ public class Constants {
         eMenuFive("[5]. Delete a Student"),
         eMenuSix("[6]. Delete a Course"),
         eMenuSeven("[7]. Application For Course"),
-        eMenuEight("[0]. Quit the system"),
+        eMenuZero("[0]. Quit the system"),
         eMenuChooseNumber("\n Choose No.: "),
         eSendEventMessage("\n** Sending an event(ID:"),
         eSendEventMessageEnter(")\n"),
@@ -265,6 +265,5 @@ public class Constants {
         public int getNumber() { return number; }
         public Long getId() { return id; }
     }
-
 
 }
